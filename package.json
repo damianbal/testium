@@ -1,0 +1,20 @@
+{
+  "name": "apitestium",
+  "version": "1.0.0",
+  "description": "Test API's with ease",
+  "main": "apitestium.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "chalk": "^2.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["test", "api", "rest"],
+  "author": "Damian Balandowski (balandowski@icloud.com)",
+  "license": "ISC"
+}

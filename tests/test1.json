@@ -1,0 +1,27 @@
+{
+    "settings": {
+        "url": "http://127.0.0.1:8000/",
+        "token": null
+    },
+    "urls": [
+        {
+            "name": "Articles",
+            "url": "/resource/Article",
+            "method": "GET",
+            "expected": { "current_page": 1 },
+            "code": 200,
+            "token": "XD"
+        },
+        {
+            "name": "Add article",
+            "url": "/resource/Article",
+            "method": "POST",
+            "expected": [],
+            "code": 201,
+            "data": {
+                "title": "My article",
+                "body": "Hello world!"
+            }
+        }
+    ]
+}
