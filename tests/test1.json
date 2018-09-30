@@ -22,6 +22,20 @@
                 "title": "My article",
                 "body": "Hello world!"
             }
+        },
+        {
+            "name": "New article",
+            "url": "/resource/Article",
+            "method": "POST",
+            "expected": {
+                "title": "superi",
+                "body": "super"
+            },
+            "code": 201,
+            "data": {
+                "title": "super",
+                "body": "super"
+            }
         }
     ]
 }

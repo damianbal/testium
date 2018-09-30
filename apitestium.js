@@ -6,7 +6,7 @@
  * @author balandowski@icloud.com
  */
 
- // import libs
+// import libs
 let axios = require('axios')
 let fs = require('fs')
 let chalk = require('chalk')
@@ -19,21 +19,20 @@ let test_filepath = process.argv[2]
 // Test 
 //
 let test_url = async (base_url, token, test) => {
-    
+
     let resp = null
     let url = base_url + test.url
-    let tok = token 
+    let tok = token
 
-    if(typeof test.token !== 'undefined') { 
+    if (typeof test.token !== 'undefined') {
         tok = test.token
         console.log(chalk.dim('! Test has own token set so it is going to be used'));
     }
 
     // set auth token
-    if(tok != null) {
-        axios.defaults.headers.common['Authorization'] = tok 
-    }
-    else {
+    if (tok != null) {
+        axios.defaults.headers.common['Authorization'] = tok
+    } else {
         axios.defaults.headers.common['Authorization'] = null
     }
 
@@ -42,26 +41,22 @@ let test_url = async (base_url, token, test) => {
 
     test.method = test.method.toUpperCase()
 
-    if(test.method === 'GET') {
+    if (test.method === 'GET') {
         resp = await axios.get(url)
-    }
-    else if(test.method === 'PATCH') {
+    } else if (test.method === 'PATCH') {
         resp = await axios.patch(url, test.data)
-    }
-    else if(test.method === 'PUT') {
+    } else if (test.method === 'PUT') {
         resp = await axios.put(url, test.data)
-    }
-    else if(test.method === 'DELETE') {
+    } else if (test.method === 'DELETE') {
         resp = await axios.delete(url)
-    }
-    else if(test.method === 'POST') {
+    } else if (test.method === 'POST') {
         resp = await axios.post(url, test.data)
     }
 
-    if(resp != null) {
-        
+    if (resp != null) {
+
         // check if status matches the expected status
-        if(resp.status != test.code) {
+        if (resp.status != test.code) {
             console.log("'" + chalk.redBright(test.name) + "'" + ' failed because of status code ' + resp.status + ' but expected ' + test.code)
             return false;
         }
@@ -70,23 +65,22 @@ let test_url = async (base_url, token, test) => {
         let respData = resp.data;
 
 
-        if(Array.isArray(test.expected)) {
-            for(let expected of test.expected) {
-                if(typeof resp.data[expected] === "undefined" ) {
+        if (Array.isArray(test.expected)) {
+            for (let expected of test.expected) {
+                if (typeof resp.data[expected] === "undefined") {
                     console.log("'" + chalk.redBright(test.name) + "'" + ' failed because of missing ' + "'" + chalk.yellow(expected) + "'")
 
-                    return false 
+                    return false
                 }
             }
-        }
-        else {
+        } else {
             let keys = Object.keys(test.expected)
 
-            for(let expected_key of keys) {
-                if(resp.data[expected_key] == test.expected[expected_key]) {
+            for (let expected_key of keys) {
+                if (resp.data[expected_key] == test.expected[expected_key]) {
                     //
                 } else {
-                    console.log("'" + chalk.redBright(test.name) + "'" + ' failed because of different value, expected ' + "'" + test.expected[expected_key] + "' is '" + resp.data[expected_key] + "'")
+                    console.log("'" + chalk.redBright(test.name) + "'" + ' failed because of different value, expected ' + "'" + chalk.yellow(test.expected[expected_key]) + "' is '" + chalk.yellow(resp.data[expected_key]) + "'")
                     return false;
                 }
             }
@@ -95,14 +89,14 @@ let test_url = async (base_url, token, test) => {
     }
 
     return true;
-} 
+}
 
 //
 // Load file and run tests
 //
 fs.readFile(test_filepath, async (err, data) => {
 
-    if(err) {
+    if (err) {
         throw err;
     }
 
@@ -113,18 +107,17 @@ fs.readFile(test_filepath, async (err, data) => {
 
     console.log(chalk.yellow("-== Tests started ==-\n"));
 
-    for(let test of tests) {
+    for (let test of tests) {
 
         let test_success = await test_url(url, json.settings.token, test)
 
-        if(test_success) {
+        if (test_success) {
 
             console.log(chalk.greenBright(`Test '${test.name}' passed!`));
 
-        }
-        else {
-        
-             console.log(chalk.redBright(`Test '${test.name}' failed!`));
+        } else {
+
+            console.log(chalk.redBright(`Test '${test.name}' failed!`));
 
         }
     }
