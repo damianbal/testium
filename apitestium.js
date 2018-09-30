@@ -45,16 +45,16 @@ let test_url = async (base_url, token, test) => {
     if(test.method === 'GET') {
         resp = await axios.get(url)
     }
-    else if(test.method == 'PATCH') {
+    else if(test.method === 'PATCH') {
         resp = await axios.patch(url, test.data)
     }
-    else if(test.method == 'PUT') {
+    else if(test.method === 'PUT') {
         resp = await axios.put(url, test.data)
     }
-    else if(test.method == 'DELETE') {
+    else if(test.method === 'DELETE') {
         resp = await axios.delete(url)
     }
-    else if(test.method == 'POST') {
+    else if(test.method === 'POST') {
         resp = await axios.post(url, test.data)
     }
 
